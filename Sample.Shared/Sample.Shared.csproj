@@ -1,0 +1,40 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.22">
+	<Import Project="..\Maui.Core.Generators\MauiGenerators.props" />
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;Xamarin.iOS10;MonoAndroid10.0;</TargetFrameworks>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+		<OutputType>Library</OutputType>
+
+		<ApplicationTitle>Test App</ApplicationTitle>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="*.shared.cs" />
+		<Compile Include="*.shared.*.cs" />
+	</ItemGroup>
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+		<Compile Include="*.netstandard.cs" />
+		<Compile Include="*.netstandard.*.cs" />
+	</ItemGroup>
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
+		<Compile Include="*.android.cs" />
+		<Compile Include="*.android.*.cs" />
+	</ItemGroup>
+	<!-- NOTE: When Android 11.x comes out we neeed to make this check more robust -->
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
+		<Compile Include="*.ios.cs" />
+		<Compile Include="*.ios.*.cs" />
+	</ItemGroup>
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) ">
+		<Compile Include="*.macos.cs" />
+		<Compile Include="*.macos.*.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Maui.Core.App\Maui.Core.App.csproj" />
+		<ProjectReference Include="..\Maui.Core.Generators\Maui.Core.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\Sample.Plugin\Sample.Plugin.csproj" />
+	</ItemGroup>
+
+	<Import Project="..\Maui.Core.Generators\MauiGenerators.targets" />
+	
+</Project>

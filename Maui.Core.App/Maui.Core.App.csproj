@@ -1,0 +1,37 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.22">
+
+  <PropertyGroup>
+		<TargetFrameworks>netstandard2.0;Xamarin.iOS10;MonoAndroid10.0;</TargetFrameworks>
+		<LangVersion>preview</LangVersion>
+	
+	 <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<Compile Include="**\*.shared.cs" />
+		<Compile Include="**\*.shared.*.cs" />
+	</ItemGroup>
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+		<Compile Include="**\*.netstandard.cs" />
+		<Compile Include="**\*.netstandard.*.cs" />
+
+		
+	</ItemGroup>
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
+		<Compile Include="**\*.android.cs" />
+		<Compile Include="**\*.android.*.cs" />
+		<AndroidResource Include="Resources\xml\*.xml" />
+
+		<PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.5" />
+	</ItemGroup>
+	<!-- NOTE: When Android 11.x comes out we neeed to make this check more robust -->
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
+		<Compile Include="**\*.ios.cs" />
+		<Compile Include="**\*.ios.*.cs" />
+	</ItemGroup>
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) ">
+		<Compile Include="**\*.macos.cs" />
+		<Compile Include="**\*.macos.*.cs" />
+	</ItemGroup>
+</Project>

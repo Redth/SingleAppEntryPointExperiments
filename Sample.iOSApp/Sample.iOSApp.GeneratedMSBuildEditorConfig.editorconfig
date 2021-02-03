@@ -1,0 +1,5 @@
+is_global = true
+build_property.OutputType = Exe
+build_property.OutputType = Exe
+build_property.TargetFrameworkIdentifier = Xamarin.iOS
+build_property.ApplicationTitle =
